@@ -342,14 +342,21 @@ class Cube:
 
         Ex: UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB."""
         facelets = self.get_kociemba_facelet_colors()
+		
+        centers = {
+        	'U': facelets[4],
+        	'R': facelets[13],
+        	'F': facelets[22],
+        	'D': facelets[31],
+        	'L': facelets[40],
+        	'B': facelets[49]
+    	}
+        color_to_face = {color: face for face, color in centers.items()}
 
-        for color, face in (
-                ('W', 'U'), ('Y', 'D'),
-                ('G', 'F'), ('O', 'L'),
-        ):
-            facelets = facelets.replace(color, face)
+		# Replace each color in facelets with the corresponding face letter
+        positions = ''.join(color_to_face.get(c, c) for c in facelets)
 
-        return facelets
+        return positions
 
     def undo(self, num_moves: int = 1) -> None:
         """Undo the last num_moves"""
